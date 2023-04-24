@@ -23,18 +23,6 @@ class TimeFormatter
         @invalid_input_params.push(parameter)
       end
     end
-
-    body(time_string, warning_string)
-  end
-
-  private
-
-  def body(time_string, warning_string)
-    if warning_string
-      return 400, ["Unknown time format [#{warning_string}]"]
-    elsif time_string
-      return 200, [time_string]
-    end
   end
 
   def time_string
@@ -42,7 +30,10 @@ class TimeFormatter
   end
 
   def warning_string
-    invalid_input_params_string = @invalid_input_params.join(',')
-    invalid_input_params_string.size.zero? ? nil : invalid_input_params_string
+    @invalid_input_params.join(',')
+  end
+
+  def success?
+    warning_string.size.zero?
   end
 end

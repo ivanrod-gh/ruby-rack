@@ -20,8 +20,7 @@ class App
 
     return response(400, ["No parameters defined\n"]) if params.empty?
 
-    status, body = TimeFormatter.new.call(params)
-    response(status, body)
+    answer(params)
   end
 
   private
@@ -54,5 +53,15 @@ class App
 
   def header
     { 'Content-Type' => 'text/plain' }
+  end
+
+  def answer(params)
+    output_time = TimeFormatter.new
+    output_time.call(params)
+    if output_time.success?
+      response(200, output_time.time_string)
+    else
+      response(400, ["Unknown time format [#{output_time.warning_string}]"])
+    end
   end
 end
