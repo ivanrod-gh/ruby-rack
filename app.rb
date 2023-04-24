@@ -20,7 +20,8 @@ class App
 
     return response(400, ["No parameters defined\n"]) if params.empty?
 
-    response(404, TimeFormatter.new.convert(params))
+    status, body = TimeFormatter.new.call(params)
+    response(status, body)
   end
 
   private

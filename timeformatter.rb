@@ -15,7 +15,7 @@ class TimeFormatter
     @invalid_input_params = []
   end
 
-  def convert(params)
+  def call(params)
     params.each do |parameter|
       if TIME_TABLE.key?(parameter.to_sym)
         @output_time_keys.push(TIME_TABLE[parameter.to_sym])
@@ -31,9 +31,9 @@ class TimeFormatter
 
   def body(time_string, warning_string)
     if warning_string
-      ["Unknown time format [#{warning_string}]"]
+      return 400, ["Unknown time format [#{warning_string}]"]
     elsif time_string
-      [time_string]
+      return 200, [time_string]
     end
   end
 
