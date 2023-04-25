@@ -34,6 +34,6 @@ class TimeFormatter
   end
 
   def success?
-    warning_string.size.zero?
+    @invalid_input_params.size.zero?
   end
 end
